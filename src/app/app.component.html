@@ -1,21 +1,176 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div id="lotus-app">
+
+  <!-- BEGIN TOOLBAR -->
+  <mat-toolbar class="lotus-toolbar">
+    <div fxLayout="row" class="toolbar-content">
+
+      <!-- BEGIN TITLE (LEFT) -->
+      <div fxFlex="25" class="title-section">
+        <h1 class="mat-headline">Lotus</h1>
+      </div>
+      <!-- END TITLE (LEFT)-->
+
+      <!-- BEGIN SEARCH (MID) -->
+      <div fxFlex="50" style="display: flex;">
+        <div class="search-input-wrapper">
+          <input [(ngModel)]="userStockSymbol" class="search-input" placeholder="Search" />
+        </div>
+        <div class="search-button-wrapper">
+          <button class="search-button" mat-flat-button color="primary">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </div>
+      <!-- END SEARCH (MID) -->
+
+      <!-- BEGIN ACCOUNT (RIGHT) -->
+      <div fxFlex="25" class="account-section">
+        <mat-icon class="toolbar-icon" color="accent">create</mat-icon>
+        <mat-icon class="toolbar-icon" color="warn">notifications</mat-icon>
+        <mat-icon class="toolbar-icon" color="primary">person</mat-icon>
+        <mat-icon class="toolbar-icon">settings</mat-icon>
+      </div>
+      <!-- END ACCOUNT (RIGHT) -->
+
+    </div>
+  </mat-toolbar>
+  <!-- END TOOLBAR -->
+
+  <!-- BEGIN DASHBOARD CONTENT -->
+  <div fxLayout="row" class="dashboard-content">
+
+    <!-- BEGIN MENU SECTION-->
+    <div fxFlex="25" class="menu-section">
+      <div class="user-menu">
+        <mat-card>
+          <mat-card-header>
+            <div mat-card-avatar class="avatar-c"></div>
+            <mat-card-title>Eddy Leon</mat-card-title>
+            <mat-card-subtitle>@eleon479</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-divider></mat-divider>
+            <mat-list>
+              <mat-list-item>
+                <mat-icon mat-list-icon>person</mat-icon>
+                <h4 mat-line>Account</h4>
+              </mat-list-item>
+              <mat-list-item>
+                <mat-icon mat-list-icon>trending_up</mat-icon>
+                <h4 mat-line>Trending</h4>
+              </mat-list-item>
+              <mat-list-item>
+                <mat-icon mat-list-icon>mail</mat-icon>
+                <h4 mat-line>Messages</h4>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <!-- END MENU SECTION -->
+
+    <!-- BEGIN FEED SECTION -->
+    <div fxFlex="50" class="feed-section">
+      <div class="feed-container">
+
+        <div class="feed-item">
+          <p><i>{{getStockUrl(userStockSymbol)}}</i></p>
+        </div>
+
+        <div class="feed-item">
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar class="avatar-a"></div>
+              <mat-card-title>Jack Dorsey</mat-card-title>
+              <mat-card-subtitle>@jd</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>This is a placeholder post.</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button>LIKE</button>
+              <button mat-button>SHARE</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+
+        <div class="feed-item">
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar class="avatar-b"></div>
+              <mat-card-title>Peter Thiel</mat-card-title>
+              <mat-card-subtitle>@pyth</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>This is another placeholder post.<br />
+                Just a bit longer.</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button>LIKE</button>
+              <button mat-button>SHARE</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+
+        <div class="feed-item">
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar class="avatar-c"></div>
+              <mat-card-title>Roy Cohn</mat-card-title>
+              <mat-card-subtitle>@royc</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>Short placeholder post.</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button>LIKE</button>
+              <button mat-button>SHARE</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+
+      </div>
+    </div>
+    <!-- END FEED SECTION -->
+
+    <!-- BEGIN TRENDING SECTION -->
+    <div fxFlex="25" class="trend-section">
+      <h2 class="mat-title trend-title">Trending</h2>
+      <!--Maybe make it so that you can swipe 
+      left/right to view more trending moves?-->
+      <div class="trend-item">
+        <mat-card></mat-card>
+      </div>
+      <h2 class="mat-title trend-title">Following</h2>
+      <div class="trend-item">
+        <mat-card></mat-card>
+      </div>
+      <div class="trend-item">
+        <mat-card></mat-card>
+      </div>
+      <div class="trend-item">
+        <mat-card></mat-card>
+      </div>
+      <h2 class="mat-title trend-title">Your Moves</h2>
+      <div class="trend-item">
+        <mat-card></mat-card>
+      </div>
+      <div class="trend-item">
+        <mat-card></mat-card>
+      </div>
+    </div>
+    <!-- END TRENDING SECTION -->
+
+  </div>
+  <!-- END DASHBOARD CONTENT -->
+
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
+<div class="fab-container">
+  <button (click)="toggleTheme()" mat-fab>
+    <mat-icon>favorite</mat-icon>
+  </button>
+</div>
 
 <router-outlet></router-outlet>
