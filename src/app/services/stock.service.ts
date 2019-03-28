@@ -6,8 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class StockService {
 
-  private HOST = 'http://localhost';
-
+  private LOTUS_SERVICE_HOST = 'http://lotus-service.herokuapp.com';
   constructor(private http: HttpClient) { }
 
   getStockChart(symbol: string) {
@@ -18,7 +17,7 @@ export class StockService {
     };
 
     const stock = symbol;
-    const call = `${this.HOST}:3000/api/ex/chart/${stock}`;
+    const call = `${this.LOTUS_SERVICE_HOST}/api/ex/chart/${stock}`;
 
     return this.http.get<ChartSeries[]>(call);
   }
@@ -31,7 +30,7 @@ export class StockService {
     };
 
     const stock = symbol;
-    const call = `${this.HOST}:3000/api/ex/quote/${stock}`;
+    const call = `${this.LOTUS_SERVICE_HOST}/api/ex/quote/${stock}`;
 
     return this.http.get<XQuote>(call);
   }
@@ -50,7 +49,7 @@ export class StockService {
       target: number;
     };
 
-    let call = `${this.HOST}:3000/api/in/moves/${userTag}`;
+    let call = `${this.LOTUS_SERVICE_HOST}:3000/api/in/moves/${userTag}`;
 
     return this.http.get<UserMove[]>(call);
   }
@@ -65,7 +64,7 @@ export class StockService {
       avatar: string
     };
 
-    const call = `${this.HOST}:3000/api/in/user/${accId}`;
+    const call = `${this.LOTUS_SERVICE_HOST}:3000/api/in/user/${accId}`;
 
     return this.http.get<UserCore>(call);
   }
