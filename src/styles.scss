@@ -16,6 +16,15 @@ $candy-app-theme:   mat-light-theme($candy-app-primary, $candy-app-accent);
 
 .lotus-light-theme {
   @include angular-material-theme($candy-app-theme);
+
+  .lotus-toolbar {
+    background-color: transparent;
+    border-bottom-color: #3f51b5;
+  }
+  
+  .toolbar-icon { color: #3f51b5; }
+  .action-tooltip { margin: 0; }
+  
 }
 
 // define an alternate dark theme
@@ -27,11 +36,19 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 .lotus-dark-theme {
   //@include angular-material-theme($dark-theme);
   @import "~@angular/material/prebuilt-themes/purple-green.css";
+  
+  .lotus-toolbar {
+    background-color: transparent;
+    border-bottom-color: #64FFDA;
+  }
+
+  .toolbar-icon { color: #64FFDA; }
+  .search-button { background-color: #64FFDA; }
+  .action-tooltip { margin: 0; }
+
 }
 
 /* ----------------- REAL CUSTOM THEMES ------------------- */
-
-
 
 html, body {
   margin: 0;

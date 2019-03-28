@@ -2,174 +2,277 @@
 
   <!-- BEGIN TOOLBAR -->
   <mat-toolbar class="lotus-toolbar">
-    <div fxLayout="row" class="toolbar-content">
+    <div fxLayout="row" fxLayoutAlign="center" class="toolbar-content">
+      <div fxFlex="100" fxFlex.lg="85" fxFlex.xl="75">
 
-      <!-- BEGIN TITLE (LEFT) -->
-      <div fxFlex="25" class="title-section">
-        <h1 class="mat-headline">Lotus</h1>
-      </div>
-      <!-- END TITLE (LEFT)-->
-
-      <!-- BEGIN SEARCH (MID) -->
-      <div fxFlex="50" style="display: flex;">
-        <div class="search-input-wrapper">
-          <input [(ngModel)]="userStockSymbol" class="search-input" placeholder="Search" />
+        <!-- BEGIN TITLE (LEFT) -->
+        <div fxFlex="25" fxFlex.lt-md="35" fxFlex.xs="50" class="title-section">
+          <p class="mat-headline">
+            <img src="../assets/lotus_vector.svg" style="width: 30px; height: inherit; vertical-align: text-bottom;">
+            trade<span class="trading-title">::lotus</span>
+          </p>
         </div>
-        <div class="search-button-wrapper">
-          <button class="search-button" mat-flat-button color="primary">
-            <mat-icon>search</mat-icon>
-          </button>
+        <!-- END TITLE (LEFT)-->
+
+        <!-- BEGIN SEARCH (MID) -->
+        <div fxFlex="50" fxFlex.lt-md="65" fxFlex.xs="50" class="search-section">
+          <div class="search-input-wrapper">
+            <input class="search-input" placeholder="Search" />
+          </div>
+          <div class="search-button-wrapper">
+            <button class="search-button" mat-flat-button color="primary">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
         </div>
-      </div>
-      <!-- END SEARCH (MID) -->
+        <!-- END SEARCH (MID) -->
 
-      <!-- BEGIN ACCOUNT (RIGHT) -->
-      <div fxFlex="25" class="account-section">
-        <mat-icon class="toolbar-icon" color="accent">create</mat-icon>
-        <mat-icon class="toolbar-icon" color="warn">notifications</mat-icon>
-        <mat-icon class="toolbar-icon" color="primary">person</mat-icon>
-        <mat-icon class="toolbar-icon">settings</mat-icon>
-      </div>
-      <!-- END ACCOUNT (RIGHT) -->
+        <!-- BEGIN ACCOUNT (RIGHT) -->
+        <div fxFlex="25" fxHide.lt-md class="account-section">
+          <mat-icon class="toolbar-icon">create</mat-icon>
+          <mat-icon class="toolbar-icon">notifications</mat-icon>
+          <mat-icon class="toolbar-icon">person</mat-icon>
+          <mat-icon class="toolbar-icon">settings</mat-icon>
+        </div>
+        <!-- END ACCOUNT (RIGHT) -->
 
+      </div>
     </div>
   </mat-toolbar>
   <!-- END TOOLBAR -->
 
   <!-- BEGIN DASHBOARD CONTENT -->
-  <div fxLayout="row" class="dashboard-content">
+  <div fxLayout="row" fxLayoutAlign="center" class="dashboard-content">
+    <div fxFlex.xl="75" fxFlex.lg="85" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100">
 
-    <!-- BEGIN MENU SECTION-->
-    <div fxFlex="25" class="menu-section">
-      <div class="user-menu">
-        <mat-card>
-          <mat-card-header>
-            <div mat-card-avatar class="avatar-c"></div>
-            <mat-card-title>Eddy Leon</mat-card-title>
-            <mat-card-subtitle>@eleon479</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-divider></mat-divider>
-            <mat-list>
-              <mat-list-item>
-                <mat-icon mat-list-icon>person</mat-icon>
-                <h4 mat-line>Account</h4>
-              </mat-list-item>
-              <mat-list-item>
-                <mat-icon mat-list-icon>trending_up</mat-icon>
-                <h4 mat-line>Trending</h4>
-              </mat-list-item>
-              <mat-list-item>
-                <mat-icon mat-list-icon>mail</mat-icon>
-                <h4 mat-line>Messages</h4>
-              </mat-list-item>
-            </mat-list>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </div>
-    <!-- END MENU SECTION -->
-
-    <!-- BEGIN FEED SECTION -->
-    <div fxFlex="50" class="feed-section">
-      <div class="feed-container">
-
-        <div class="feed-item">
-          <p><i>{{getStockUrl(userStockSymbol)}}</i></p>
-        </div>
-
-        <div class="feed-item">
+      <!-- BEGIN MENU SECTION-->
+      <div fxFlex="25" fxHide.xs fxFlex.lt-md="35" class="menu-section">
+        <div class="user-menu">
           <mat-card>
             <mat-card-header>
-              <div mat-card-avatar class="avatar-a"></div>
-              <mat-card-title>Jack Dorsey</mat-card-title>
-              <mat-card-subtitle>@jd</mat-card-subtitle>
+              <div mat-card-avatar [ngClass]="user.avatar"></div>
+              <mat-card-title>{{user.firstName + ' ' + user.lastName}}</mat-card-title>
+              <mat-card-subtitle>@{{user.tag}}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-              <p>This is a placeholder post.</p>
+              <mat-divider></mat-divider>
+              <mat-list>
+
+                <!--User/Personal/Account-->
+                <h3 matSubheader>Your Account</h3>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>home</mat-icon>
+                  <h4 mat-line>Home</h4>
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>person</mat-icon>
+                  <h4 mat-line>Profile</h4>
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>bookmarks</mat-icon>
+                  <h4 mat-line>Bookmarks</h4>
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>settings</mat-icon>
+                  <h4 mat-line>Account</h4>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <!--User/Personal-->
+
+
+                <!--Markets-->
+                <h3 matSubheader>Markets</h3>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>trending_up</mat-icon>
+                  <h4 mat-line>Movers</h4>
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>public</mat-icon>
+                  <h4 mat-line>News</h4>
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>equalizer</mat-icon>
+                  <h4 mat-line>Research</h4>
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>linear_scale</mat-icon>
+                  <h4 mat-line>Timeline</h4>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <!--Markets-->
+
+                <!--Social-->
+                <h3 matSubheader>Social</h3>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>whatshot</mat-icon>
+                  <h4 mat-line>Popular</h4>
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>group</mat-icon>
+                  <h4 mat-line>Groups</h4>
+                </mat-list-item>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>mail</mat-icon>
+                  <h4 mat-line>Messages</h4>
+                </mat-list-item>
+                <!--Social-->
+
+              </mat-list>
             </mat-card-content>
-            <mat-card-actions>
-              <button mat-button>LIKE</button>
-              <button mat-button>SHARE</button>
-            </mat-card-actions>
           </mat-card>
         </div>
+      </div>
+      <!-- END MENU SECTION -->
 
-        <div class="feed-item">
+      <!-- BEGIN FEED SECTION -->
+      <div fxFlex="50" fxFlex.lt-md="65" fxFlex.xs="100" class="feed-section">
+        <div class="feed-container">
+
+          <div *ngFor="let item of userFeed">
+
+            <!-- BEGIN FEED ITEM -->
+            <div class="feed-item">
+              <mat-card>
+
+                <mat-card-header>
+                  <div mat-card-avatar [ngClass]="item.avatar"></div>
+                  <mat-card-title>{{item.firstName}}</mat-card-title>
+                  <mat-card-subtitle>@{{item.tag}}</mat-card-subtitle>
+                  <div fxFlex></div>
+                  <div fxLayout="column" class="feed-item-vote">
+
+                    <!--
+                    <mat-icon [ngClass]="item.upvoted && 'action-green'">trending_up</mat-icon>
+                    <mat-icon [ngClass]="item.downvoted && 'action-red'">trending_down</mat-icon>
+                    -->
+
+                    <button mat-icon-button class="feed-item-vote">
+                      <mat-icon [ngClass]="item.upvoted && 'action-green'">trending_up</mat-icon>
+                    </button>
+                    <button mat-icon-button class="feed-item-vote">
+                      <mat-icon [ngClass]="item.downvoted && 'action-red'">trending_down</mat-icon>
+                    </button>
+
+                  </div>
+                </mat-card-header>
+
+                <mat-card-content>
+                  <p>{{item.content}}</p>
+                </mat-card-content>
+
+                <mat-card-actions>
+                  <button mat-button>{{item.commentCount}} comments</button>
+                  <div fxFlex></div>
+                  <button matTooltip="More actions" matTooltipClass="action-tooltip" matTooltipPosition="below" mat-icon-button class="feed-item-action">
+                    <mat-icon>more_horiz</mat-icon>
+                  </button>
+                  <button matTooltip="Bookmark" matTooltipClass="action-tooltip" matTooltipPosition="below" mat-icon-button class="feed-item-action">
+                    <mat-icon [ngClass]="item.bookmarked && 'action-green'">bookmark</mat-icon>
+                  </button>
+                  <button matTooltip="Follow" matTooltipClass="action-tooltip" matTooltipPosition="below" mat-icon-button class="feed-item-action">
+                    <mat-icon [ngClass]="item.followed && 'action-green'">visibility</mat-icon>
+                  </button>
+                  <button matTooltip="Share" matTooltipClass="action-tooltip" matTooltipPosition="below" mat-icon-button class="feed-item-action">
+                    <mat-icon [ngClass]="item.shared && 'action-green'">repeat</mat-icon>
+                  </button>
+                </mat-card-actions>
+
+              </mat-card>
+            </div>
+            <!-- END FEED ITEM -->
+
+          </div>
+        </div>
+      </div>
+      <!-- END FEED SECTION -->
+
+      <!-- BEGIN TRENDING SECTION -->
+      <div fxFlex="25" fxHide.lt-md class="trend-section">
+        <h2 class="mat-title trend-title">Trending</h2>
+        <div class="trend-item">
           <mat-card>
-            <mat-card-header>
-              <div mat-card-avatar class="avatar-b"></div>
-              <mat-card-title>Peter Thiel</mat-card-title>
-              <mat-card-subtitle>@pyth</mat-card-subtitle>
-            </mat-card-header>
             <mat-card-content>
-              <p>This is another placeholder post.<br />
-                Just a bit longer.</p>
+              <p><span class="stock-ticker">{{ stockSymbol }}</span> {{ formatPrice() }} <span [ngClass]="stockGreen ? 'action-green' : 'action-red'">{{ formatChange() }}</span></p>
+              <div class="trend-item-chart">
+                <ngx-charts-line-chart
+                  [view]="lineChartOptions.view"
+                  [results]="stockChart"
+                  [scheme]="lineChartOptions.scheme"
+                  [schemeType]="lineChartOptions.schemeType"
+                  [customColors]="lineChartOptions.customColors"
+                  [animations]="lineChartOptions.animations"
+                  [rangeFillOpacity]="lineChartOptions.rangeFillOpacity"
+                  [legend]="lineChartOptions.legend"
+                  [legendTitle]="lineChartOptions.legendTitle"
+                  [legendPosition]="lineChartOptions.legendPosition"
+                  [xAxis]="lineChartOptions.xAxis"
+                  [yAxis]="lineChartOptions.yAxis"
+                  [showGridLines]="lineChartOptions.showGridLines"
+                  [roundDomains]="lineChartOptions.roundDomains"
+                  [showXAxisLabel]="lineChartOptions.showXAxisLabel"
+                  [showYAxisLabel]="lineChartOptions.showYAxisLabel"
+                  [xAxisLabel]="lineChartOptions.xAxisLabel"
+                  [yAxisLabel]="lineChartOptions.yAxisLabel"
+                  [trimXAxisTicks]="lineChartOptions.trimXAxisTicks"
+                  [trimYAxisTicks]="lineChartOptions.trimYAxisTicks"
+                  [maxXAxisTickLength]="lineChartOptions.maxXAxisTickLength"
+                  [maxYAxisTickLength]="lineChartOptions.maxYAxisTickLength"
+                  [xAxisTickFormatting]="lineChartOptions.xAxisTickFormatting"
+                  [yAxisTickFormatting]="lineChartOptions.yAxisTickFormatting"
+                  [xAxisTicks]="lineChartOptions.xAxisTicks"
+                  [yAxisTicks]="lineChartOptions.yAxisTicks"
+                  [timeline]="lineChartOptions.timeline"
+                  [autoScale]="lineChartOptions.autoScale"
+                  [curve]="lineChartOptions.curve"
+                  [gradient]="lineChartOptions.gradient"
+                  [activeEntries]="lineChartOptions.activeEntries"
+                  [tooltipDisabled]="lineChartOptions.tooltipDisabled"
+                  [referenceLines]="lineChartOptions.referenceLines"
+                  [showRefLines]="lineChartOptions.showRefLines"
+                  [showRefLabels]="lineChartOptions.showRefLabels"
+                  [xScaleMin]="lineChartOptions.xScaleMin"
+                  [xScaleMax]="lineChartOptions.xScaleMax"
+                  [yScaleMin]="lineChartOptions.yScaleMin"
+                  [yScaleMax]="lineChartOptions.yScaleMax">
+                </ngx-charts-line-chart>
+              </div>
             </mat-card-content>
-            <mat-card-actions>
-              <button mat-button>LIKE</button>
-              <button mat-button>SHARE</button>
-            </mat-card-actions>
           </mat-card>
         </div>
-
-        <div class="feed-item">
-          <mat-card>
-            <mat-card-header>
-              <div mat-card-avatar class="avatar-c"></div>
-              <mat-card-title>Roy Cohn</mat-card-title>
-              <mat-card-subtitle>@royc</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              <p>Short placeholder post.</p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button>LIKE</button>
-              <button mat-button>SHARE</button>
-            </mat-card-actions>
-          </mat-card>
+        <h2 class="mat-title trend-title">Following</h2>
+        <div class="trend-item">
+          <mat-card></mat-card>
         </div>
-
+        <div class="trend-item">
+          <mat-card></mat-card>
+        </div>
+        <div class="trend-item">
+          <mat-card></mat-card>
+        </div>
+        <h2 class="mat-title trend-title">Your Moves</h2>
+        <div class="trend-item">
+          <mat-card></mat-card>
+        </div>
+        <div class="trend-item">
+          <mat-card></mat-card>
+        </div>
       </div>
+      <!-- END TRENDING SECTION -->
+
     </div>
-    <!-- END FEED SECTION -->
-
-    <!-- BEGIN TRENDING SECTION -->
-    <div fxFlex="25" class="trend-section">
-      <h2 class="mat-title trend-title">Trending</h2>
-      <!--Maybe make it so that you can swipe 
-      left/right to view more trending moves?-->
-      <div class="trend-item">
-        <mat-card></mat-card>
-      </div>
-      <h2 class="mat-title trend-title">Following</h2>
-      <div class="trend-item">
-        <mat-card></mat-card>
-      </div>
-      <div class="trend-item">
-        <mat-card></mat-card>
-      </div>
-      <div class="trend-item">
-        <mat-card></mat-card>
-      </div>
-      <h2 class="mat-title trend-title">Your Moves</h2>
-      <div class="trend-item">
-        <mat-card></mat-card>
-      </div>
-      <div class="trend-item">
-        <mat-card></mat-card>
-      </div>
-    </div>
-    <!-- END TRENDING SECTION -->
-
   </div>
   <!-- END DASHBOARD CONTENT -->
 
 </div>
 
-<div class="fab-container">
+<div *ngIf="showThemeControls" class="fab-container">
   <button (click)="toggleTheme()" mat-fab>
-    <mat-icon>favorite</mat-icon>
+    <div *ngIf="darkTheme">
+      <mat-icon>wb_sunny</mat-icon>
+    </div>
+    <div *ngIf="!darkTheme">
+      <mat-icon>brightness_3</mat-icon>
+    </div>
   </button>
 </div>
 

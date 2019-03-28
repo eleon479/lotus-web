@@ -1,50 +1,280 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { StockService } from './services/stock.service';
+import * as shape from 'd3-shape';
+
+export interface UserModel {
+  userId: number,
+  tag: string,
+  firstName: string,
+  lastName: string,
+  avatar: string
+};
+
+export interface FeedItemModel {
+  postId: number,
+  userId: number,
+  tag: string,
+  firstName: string,
+  lastName: string,
+  avatar: string,
+  upvoted: boolean,
+  downvoted: boolean,
+  content: string,
+  commentCount: number,
+  bookmarked: boolean,
+  followed: boolean,
+  shared: boolean
+};
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  /* app settings */
-  title = 'lotus-web';
-  darkTheme = false;
+  // authentication
+  accId: string = 'j5brhkl2e9j0l7';
 
-  /* user data */
-  userStockSymbol = 'SPY';
+  // app
+  showThemeControls: boolean = true;
+  darkTheme: boolean;
+  user: UserModel;
+  userFeed: FeedItemModel[] = [];
 
-  fetchStock() {
-    let apiUrl = this.getStockUrl('SPY');
-    // http.get(getStockUrl(...));
+  // temp
+  stockSymbol: string;
+  stockPrice: number;
+  stockChange: number;
+  stockGreen: boolean;
+  loading: boolean;
+
+  // stock chart
+  stockChart: any[];
+
+  // user moves
+  userMoves: [];
+
+  constructor(private stockService: StockService) { }
+
+  ngOnInit() {
+
+    /* app setting initialization */
+    this.darkTheme = true;
+
+    /* user data loading */
+    this.fetchUser();
+    this.fetchFeed();
+
+    this.loading = false;
+    this.stockSymbol = 'TVIX';
+    this.stockPrice = -1;
+    this.stockChange = 0;
+    this.stockGreen = true;
+
+    this.stockChart = [
+      {
+        name: 'placeholder SYMBOL',
+        series: [
+          { value: 1, name: 'first' }
+        ]
+      }
+    ];
+
+    this.fetchQuote(this.stockSymbol);
+    this.fetchChart(this.stockSymbol);
   }
 
-  getStockUrl(symbol: string) {
+  fetchChart(symbol: string) {
+    if (!symbol) return;
+    this.stockService.getStockChart(symbol).subscribe((chartResponse) => {
+      this.stockChart = [
+        {
+          name: symbol,
+          series: [...chartResponse]
+        }
+      ];
+    });
+  }
 
-    let version = 'beta';
-    let service = 'stock';
-    let action = 'quote';
-    let token = 'pk_1aa9b4e109f94cccadb1a8f3aa9f68cc';
+  fetchUser() {
 
-    return `https://cloud.iexapis.com/${version}/${service}/${symbol}/${action}?token=${token}`;
+    // initialize user obj to empty vals to
+    // prevent weird ngClass bug w/ avatar
+    if (!this.user) {
+      this.user = {
+        userId: -1,
+        firstName: '',
+        lastName: '',
+        tag: '',
+        avatar: ''
+      };
+    }
+
+    // implement a token / authentication system(?)
+    this.stockService.getUser(this.accId).subscribe((slice) => {
+      this.user = slice;
+    });
+  }
+
+  fetchFeed() {
+    // implement some updating / scrolling mechanism
+    this.userFeed = this.stockService.getFeed();
+  }
+
+  fetchQuote(query: string) {
+    this.loading = true;
+    this.stockService.getStockPrice(query).subscribe((slice) => {
+      this.loading = false;
+      this.stockPrice = slice.latestPrice;
+      this.stockChange = slice.changePercent;
+      this.stockGreen = slice.changePercent >= 0;
+    });
+  }
+
+  formatPrice() {
+    if (this.loading) {
+      return 'LOADING';
+    } else {
+      if (this.stockPrice == -1) {
+        return 'Invalid Symbol';
+      } else {
+        return `$${this.stockPrice.toFixed(2)}`;
+      }
+    }
+  }
+
+  formatChange() {
+    if (this.loading) {
+      return '(%waitforit%)'
+    } else {
+      if (this.stockPrice == -1) {
+        return ':(';
+      } else {
+        let fsc = (this.stockChange * 100).toFixed(2);
+        return `(${fsc}%)`;
+      }
+    }
   }
 
   toggleTheme() {
-
-    let light = 'lotus-light-theme';
-    let dark = 'lotus-dark-theme';
-
     if (!this.darkTheme) {
-      document.getElementById('lotus-index').classList.remove(light);
-      document.getElementById('lotus-index').classList.add(dark);
+      document.getElementById('lotus-index').classList.remove('lotus-light-theme');
+      document.getElementById('lotus-index').classList.add('lotus-dark-theme');
       this.darkTheme = true;
     } else {
-      document.getElementById('lotus-index').classList.remove(dark);
-      document.getElementById('lotus-index').classList.add(light);
+      document.getElementById('lotus-index').classList.remove('lotus-dark-theme');
+      document.getElementById('lotus-index').classList.add('lotus-light-theme');
       this.darkTheme = false;
     }
-
-    console.log('theme has been toggled...');
   }
+
+  /* Chart Options */
+
+  areaChartOptions = {
+    view: null,
+    results: [], //
+    scheme: { domain: ['#64FFDA'] },
+    schemeType: 'ordinal',
+    customColors: null,
+    animations: true,
+    legend: false,
+    legendTitle: 'Legend',
+    legendPosition: 'right',
+    xAxis: false,
+    yAxis: false,
+    showGridLines: false,
+    roundDomains: false,
+    showXAxisLabel: false,
+    showYAxisLabel: false,
+    xAxisLabel: 'Country',
+    yAxisLabel: 'Population',
+    trimXAxisTicks: true,
+    trimYAxisTicks: true,
+    maxXAxisTickLength: 16,
+    maxYAxisTickLength: 16,
+    xAxisTickFormatting: null,
+    yAxisTickFormatting: null,
+    xAxisTicks: null,
+    yAxisTicks: null,
+    timeline: false,
+    autoScale: false,
+    curve: shape.curveBasis,
+    gradient: false,
+    activeEntries: [],
+    tooltipDisabled: false,
+    tooltipTemplate: null, //
+    seriesTooltipTemplate: null, //
+    xScaleMin: null,
+    xScaleMax: null,
+    yScaleMin: null,
+    yScaleMax: null
+  };
+
+  lineChartOptions = {
+    view: null,
+    results: [], //
+    scheme: { domain: ['#64FFDA'] },
+    schemeType: 'ordinal',
+    customColors: null,
+    animations: true,
+    rangeFillOpacity: 0.15,
+    legend: false,
+    legendTitle: 'Legend',
+    legendPosition: 'right',
+    xAxis: false,
+    yAxis: false,
+    showGridLines: true,
+    roundDomains: false,
+    showXAxisLabel: false,
+    showYAxisLabel: false,
+    xAxisLabel: 'Country',
+    yAxisLabel: 'Population',
+    trimXAxisTicks: true,
+    trimYAxisTicks: true,
+    maxXAxisTickLength: 16,
+    maxYAxisTickLength: 16,
+    xAxisTickFormatting: null,
+    yAxisTickFormatting: null,
+    xAxisTicks: null,
+    yAxisTicks: null,
+    timeline: false,
+    autoScale: true,
+    curve: shape.curveNatural, // or: curveLinear
+    gradient: false,
+    activeEntries: [],
+    tooltipDisabled: false,
+    tooltipTemplate: null, //
+    seriesTooltipTemplate: null, //
+    referenceLines: null,
+    showRefLines: false,
+    showRefLabels: true,
+    xScaleMin: null,
+    xScaleMax: null,
+    yScaleMin: null,
+    yScaleMax: null
+  };
+
+  /*
+  ngxChartExample = [
+    {
+      name: "Series Name Goes Here",
+      series: [
+        {
+          value: 30,
+          name: 'first'
+        },
+        {
+          value: 60,
+          name: 'second'
+        },
+        {
+          value: 90,
+          name: 'third'
+        } // more data points go here...
+      ]
+    } // multiple series also supported
+  ];
+  */
 
 }

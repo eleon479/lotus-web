@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, MatCardModule, MatListModule, MatDividerModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, MatCardModule, MatListModule, MatDividerModule, MatInputModule, MatTooltipModule } from '@angular/material';
 
 import { NgModule } from '@angular/core';
 
@@ -10,6 +10,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FormsModule } from '@angular/forms';
 
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { StockService } from './services/stock.service';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -18,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     FlexLayoutModule,
     OverlayModule,
@@ -28,9 +33,11 @@ import { FormsModule } from '@angular/forms';
     MatCardModule,
     MatListModule,
     MatDividerModule,
-    MatInputModule
+    MatInputModule,
+    MatTooltipModule,
+    NgxChartsModule
   ],
-  providers: [],
+  providers: [StockService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
