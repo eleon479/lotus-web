@@ -6,8 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class StockService {
 
-  //private HOST = 'http://192.168.1.191';
-  private HOST = 'http://10.74.70.103';
+  private HOST = 'http://localhost';
 
   constructor(private http: HttpClient) { }
 
@@ -18,8 +17,8 @@ export class StockService {
       name: string
     };
 
-    let stock = symbol;
-    let call = `${this.HOST}:3000/api/ex/chart/${stock}`;
+    const stock = symbol;
+    const call = `${this.HOST}:3000/api/ex/chart/${stock}`;
 
     return this.http.get<ChartSeries[]>(call);
   }
@@ -31,8 +30,8 @@ export class StockService {
       changePercent: number
     };
 
-    let stock = symbol;
-    let call = `${this.HOST}:3000/api/ex/quote/${stock}`;
+    const stock = symbol;
+    const call = `${this.HOST}:3000/api/ex/quote/${stock}`;
 
     return this.http.get<XQuote>(call);
   }
@@ -66,7 +65,7 @@ export class StockService {
       avatar: string
     };
 
-    let call = `${this.HOST}:3000/api/in/user/${accId}`;
+    const call = `${this.HOST}:3000/api/in/user/${accId}`;
 
     return this.http.get<UserCore>(call);
   }
