@@ -44,7 +44,7 @@ export class StockService {
       title: string;
       symbol: string;
       description: string;
-      tags: string[];
+      //tags: string[]; temp
       entry: number;
       target: number;
     };
