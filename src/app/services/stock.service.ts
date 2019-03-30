@@ -44,7 +44,7 @@ export class StockService {
       title: string;
       symbol: string;
       description: string;
-      //tags: string[]; temp
+      //tags: string[];
       entry: number;
       target: number;
     };
@@ -63,7 +63,7 @@ export class StockService {
       tag: string,
       avatar: string
     };
-    
+
     const call = `${this.LOTUS_SERVICE_HOST}/api/users/${userId}`;
 
     return this.http.get<UserCore>(call);
