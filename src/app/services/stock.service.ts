@@ -17,7 +17,7 @@ export class StockService {
     };
 
     const stock = symbol;
-    const call = `${this.LOTUS_SERVICE_HOST}/api/ex/chart/${stock}`;
+    const call = `${this.LOTUS_SERVICE_HOST}/api/ext/charts/${stock}`;
 
     return this.http.get<ChartSeries[]>(call);
   }
@@ -30,12 +30,12 @@ export class StockService {
     };
 
     const stock = symbol;
-    const call = `${this.LOTUS_SERVICE_HOST}/api/ex/quote/${stock}`;
+    const call = `${this.LOTUS_SERVICE_HOST}/api/ext/quotes/${stock}`;
 
     return this.http.get<XQuote>(call);
   }
 
-  getMoves(userTag: string) {
+  getMoves(userId: number) {
 
     interface UserMove {
       moveId: number;
@@ -49,12 +49,12 @@ export class StockService {
       target: number;
     };
 
-    let call = `${this.LOTUS_SERVICE_HOST}:3000/api/in/moves/${userTag}`;
+    const call = `${this.LOTUS_SERVICE_HOST}/api/moves/${userId}`;
 
     return this.http.get<UserMove[]>(call);
   }
 
-  getUser(accId: string) {
+  getUser(userId: number) {
 
     interface UserCore {
       userId: number,
@@ -63,8 +63,8 @@ export class StockService {
       tag: string,
       avatar: string
     };
-
-    const call = `${this.LOTUS_SERVICE_HOST}:3000/api/in/user/${accId}`;
+    
+    const call = `${this.LOTUS_SERVICE_HOST}/api/users/${userId}`;
 
     return this.http.get<UserCore>(call);
   }

@@ -34,7 +34,8 @@ export interface FeedItemModel {
 export class AppComponent implements OnInit {
 
   // authentication
-  accId: string = 'j5brhkl2e9j0l7';
+  // accId: string = 'j5brhkl2e9j0l7';
+  userId: number = 1;
 
   // app
   showThemeControls: boolean = true;
@@ -112,7 +113,7 @@ export class AppComponent implements OnInit {
     }
 
     // implement a token / authentication system(?)
-    this.stockService.getUser(this.accId).subscribe((slice) => {
+    this.stockService.getUser(this.userId).subscribe((slice) => {
       this.user = slice;
     });
   }
