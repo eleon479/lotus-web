@@ -57,9 +57,9 @@ export class StockService {
   getUser(userId: number) {
 
     interface UserCore {
-      userId: number,
-      firstName: string,
-      lastName: string,
+      id: number,
+      firstname: string,
+      lastname: string,
       tag: string,
       avatar: string
     };

@@ -51,8 +51,8 @@
           <mat-card>
             <mat-card-header>
               <div mat-card-avatar [ngClass]="user.avatar"></div>
-              <mat-card-title>{{user.firstName + ' ' + user.lastName}}</mat-card-title>
-              <mat-card-subtitle>@{{user.tag}}</mat-card-subtitle>
+              <mat-card-title class="proper-name">{{user.firstName + ' ' + user.lastName}}</mat-card-title>
+              <mat-card-subtitle class="tag-name">@{{user.tag}}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
               <mat-divider></mat-divider>

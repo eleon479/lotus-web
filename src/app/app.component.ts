@@ -105,16 +105,22 @@ export class AppComponent implements OnInit {
     if (!this.user) {
       this.user = {
         userId: -1,
-        firstName: '',
-        lastName: '',
-        tag: '',
-        avatar: ''
+        firstName: 'loading',
+        lastName: 'loading',
+        tag: 'loading',
+        avatar: 'avatar1'
       };
     }
 
     // implement a token / authentication system(?)
     this.stockService.getUser(this.userId).subscribe((slice) => {
-      this.user = slice;
+      this.user = {
+        userId: slice.id,
+        firstName: this.formatName(slice.firstname),
+        lastName: this.formatName(slice.lastname),
+        tag: slice.tag,
+        avatar: slice.avatar
+      };
     });
   }
 
@@ -131,6 +137,10 @@ export class AppComponent implements OnInit {
       this.stockChange = slice.changePercent;
       this.stockGreen = slice.changePercent >= 0;
     });
+  }
+
+  formatName(name: string): string {
+    return name.charAt(0).toUpperCase() + name.slice(1).toLocaleLowerCase();
   }
 
   formatPrice() {
