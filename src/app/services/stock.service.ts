@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class StockService {
 
-  private LOTUS_SERVICE_HOST = 'http://lotus-service.herokuapp.com';
+  private LOTUS_SERVICE_HOST = 'https://lotus-service.herokuapp.com';
   constructor(private http: HttpClient) { }
 
   getStockChart(symbol: string) {
