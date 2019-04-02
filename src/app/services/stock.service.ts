@@ -12,9 +12,9 @@ export class StockService {
   getStockChart(symbol: string) {
 
     interface ChartSeries {
-      value: number,
-      name: string
-    };
+      value: number;
+      name: string;
+    }
 
     const stock = symbol;
     const call = `${this.LOTUS_SERVICE_HOST}/api/ext/charts/${stock}`;
@@ -24,15 +24,15 @@ export class StockService {
 
   getStockPrice(symbol: string) {
 
-    interface XQuote {
-      latestPrice: number,
-      changePercent: number
-    };
+    interface StockPrice {
+      latestPrice: number;
+      changePercent: number;
+    }
 
     const stock = symbol;
     const call = `${this.LOTUS_SERVICE_HOST}/api/ext/quotes/${stock}`;
 
-    return this.http.get<XQuote>(call);
+    return this.http.get<StockPrice>(call);
   }
 
   getMoves(userId: number) {
@@ -44,25 +44,24 @@ export class StockService {
       title: string;
       symbol: string;
       description: string;
-      //tags: string[];
+      // tags: string[];
       entry: number;
       target: number;
-    };
+    }
 
     const call = `${this.LOTUS_SERVICE_HOST}/api/moves/${userId}`;
-
     return this.http.get<UserMove[]>(call);
   }
 
   getUser(userId: number) {
 
     interface UserCore {
-      id: number,
-      firstname: string,
-      lastname: string,
-      tag: string,
-      avatar: string
-    };
+      id: number;
+      firstname: string;
+      lastname: string;
+      tag: string;
+      avatar: string;
+    }
 
     const call = `${this.LOTUS_SERVICE_HOST}/api/users/${userId}`;
 
@@ -70,110 +69,34 @@ export class StockService {
   }
 
   getFeed() {
-    return [{
-      postId: 1,
-      userId: 1,
-      tag: 'eleon479',
-      firstName: 'Eddy',
-      lastName: 'Leon',
-      avatar: 'avatar1',
-      upvoted: true,
-      downvoted: false,
-      content: 'a randomly generated post + inserted into an ng-templat',
-      commentCount: 3,
-      bookmarked: false,
-      followed: true,
-      shared: false
-    },
-    {
-      postId: 2,
-      userId: 2,
-      tag: 'aunvt',
-      firstName: 'Another',
-      lastName: 'User',
-      avatar: 'avatar2',
-      upvoted: false,
-      downvoted: true,
-      content: 'sample text (also random)',
-      commentCount: 2,
-      bookmarked: false,
-      followed: false,
-      shared: false
-    },
-    {
-      postId: 3,
-      userId: 1,
-      tag: 'eleon479',
-      firstName: 'Eddy',
-      lastName: 'Leon',
-      avatar: 'avatar3',
-      upvoted: false,
-      downvoted: false,
-      content: 'more dynamically inserted content!',
-      commentCount: 0,
-      bookmarked: true,
-      followed: false,
-      shared: true
-    },
-    {
-      postId: 4,
-      userId: 305,
-      tag: 'dale',
-      firstName: 'Pit',
-      lastName: 'Bull',
-      avatar: 'avatar4',
-      upvoted: false,
-      downvoted: true,
-      content: 'sample text (also random)',
-      commentCount: 2,
-      bookmarked: false,
-      followed: false,
-      shared: false
-    },
-    {
-      postId: 4,
-      userId: 305,
-      tag: 'dale',
-      firstName: 'Pit',
-      lastName: 'Bull',
-      avatar: 'avatar5',
-      upvoted: false,
-      downvoted: true,
-      content: 'sample text (also random)',
-      commentCount: 2,
-      bookmarked: false,
-      followed: false,
-      shared: false
-    },
-    {
-      postId: 4,
-      userId: 305,
-      tag: 'dale',
-      firstName: 'Pit',
-      lastName: 'Bull',
-      avatar: 'avatar6',
-      upvoted: false,
-      downvoted: true,
-      content: 'sample text (also random)',
-      commentCount: 2,
-      bookmarked: false,
-      followed: false,
-      shared: false
-    },
-    {
-      postId: 4,
-      userId: 305,
-      tag: 'dale',
-      firstName: 'Pit',
-      lastName: 'Bull',
-      avatar: 'avatar7',
-      upvoted: false,
-      downvoted: true,
-      content: 'sample text (also random)',
-      commentCount: 2,
-      bookmarked: false,
-      followed: false,
-      shared: false
-    }];
+
+    interface Post {
+
+      // relation data
+      id: number;
+      userId: number;
+
+      // post data
+      title: string;
+      contents: string;
+      firstname: string;
+      lastname: string;
+      tag: string;
+      avatar: string;
+
+      // seconday data about the post
+      commentCount: number;
+
+      // data about the post specific to this user
+      upvoted: boolean;
+      downvoted: boolean;
+      bookmarked: boolean;
+      followed: boolean;
+      shared: boolean;
+    }
+
+    const call = `${this.LOTUS_SERVICE_HOST}/api/posts/`;
+
+    return this.http.get<Post[]>(call);
   }
 }

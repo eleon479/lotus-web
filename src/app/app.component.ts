@@ -3,28 +3,32 @@ import { StockService } from './services/stock.service';
 import * as shape from 'd3-shape';
 
 export interface UserModel {
-  userId: number,
-  tag: string,
-  firstName: string,
-  lastName: string,
-  avatar: string
-};
+  userId: number;
+  tag: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+}
 
 export interface FeedItemModel {
-  postId: number,
-  userId: number,
-  tag: string,
-  firstName: string,
-  lastName: string,
-  avatar: string,
-  upvoted: boolean,
-  downvoted: boolean,
-  content: string,
-  commentCount: number,
-  bookmarked: boolean,
-  followed: boolean,
-  shared: boolean
-};
+  postId: number;
+  userId: number;
+
+  title: string;
+  contents: string;
+  firstName: string;
+  lastName: string;
+  tag: string;
+  avatar: string;
+
+  commentCount: number;
+
+  upvoted: boolean;
+  downvoted: boolean;
+  bookmarked: boolean;
+  followed: boolean;
+  shared: boolean;
+}
 
 @Component({
   selector: 'app-root',
@@ -34,11 +38,10 @@ export interface FeedItemModel {
 export class AppComponent implements OnInit {
 
   // authentication
-  // accId: string = 'j5brhkl2e9j0l7';
-  userId: number = 1;
+  userId = 1;
 
   // app
-  showThemeControls: boolean = true;
+  showThemeControls = true;
   darkTheme: boolean;
   user: UserModel;
   userFeed: FeedItemModel[] = [];
@@ -87,7 +90,7 @@ export class AppComponent implements OnInit {
   }
 
   fetchChart(symbol: string) {
-    if (!symbol) return;
+    if (symbol) {
     this.stockService.getStockChart(symbol).subscribe((chartResponse) => {
       this.stockChart = [
         {
@@ -96,6 +99,7 @@ export class AppComponent implements OnInit {
         }
       ];
     });
+  }
   }
 
   fetchUser() {
@@ -126,7 +130,40 @@ export class AppComponent implements OnInit {
 
   fetchFeed() {
     // implement some updating / scrolling mechanism
-    this.userFeed = this.stockService.getFeed();
+
+    this.stockService.getFeed().subscribe(posts => {
+      this.userFeed = posts.map(post => {
+
+        const randomBoolean = (): boolean => {
+          return Boolean(Math.floor(Math.random() * 2));
+        };
+
+        const tempCommentCount = Math.floor(Math.random() * 10);
+        const tempVoted = randomBoolean();
+        const tempUpvoted = tempVoted ? randomBoolean() : false;
+        const tempDownvoted = tempVoted ? !tempUpvoted : false;
+        const tempBookmared = randomBoolean();
+        const tempFollowed = randomBoolean();
+        const tempShared = randomBoolean();
+
+        return {
+          postId: post.id,
+          userId: post.userId,
+          title: post.title,
+          contents: post.contents,
+          firstName: post.firstname,
+          lastName: post.lastname,
+          tag: post.tag,
+          avatar: post.avatar,
+          commentCount: tempCommentCount,
+          upvoted: tempUpvoted,
+          downvoted: tempDownvoted,
+          bookmarked: tempBookmared,
+          followed: tempFollowed,
+          shared: tempShared
+        };
+      });
+    });
   }
 
   fetchQuote(query: string) {
@@ -147,7 +184,7 @@ export class AppComponent implements OnInit {
     if (this.loading) {
       return 'LOADING';
     } else {
-      if (this.stockPrice == -1) {
+      if (this.stockPrice === -1) {
         return 'Invalid Symbol';
       } else {
         return `$${this.stockPrice.toFixed(2)}`;
@@ -157,12 +194,12 @@ export class AppComponent implements OnInit {
 
   formatChange() {
     if (this.loading) {
-      return '(%waitforit%)'
+      return '(%waitforit%)';
     } else {
-      if (this.stockPrice == -1) {
+      if (this.stockPrice === -1) {
         return ':(';
       } else {
-        let fsc = (this.stockChange * 100).toFixed(2);
+        const fsc = (this.stockChange * 100).toFixed(2);
         return `(${fsc}%)`;
       }
     }
@@ -182,6 +219,7 @@ export class AppComponent implements OnInit {
 
   /* Chart Options */
 
+// tslint:disable-next-line: member-ordering
   areaChartOptions = {
     view: null,
     results: [], //
@@ -222,6 +260,7 @@ export class AppComponent implements OnInit {
     yScaleMax: null
   };
 
+// tslint:disable-next-line: member-ordering
   lineChartOptions = {
     view: null,
     results: [], //
