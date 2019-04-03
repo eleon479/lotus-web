@@ -175,6 +175,8 @@ export class AppComponent implements OnInit {
   }
 
   upvotePost(item: any) {
+
+    // update ui component immediately
     item.upvoted = !item.upvoted;
     item.downvoted = false;
 
@@ -184,6 +186,14 @@ export class AppComponent implements OnInit {
       postId: number;
       voteType: string; // upvote | downvote
     }
+
+    const upvoteActionObject = {
+      userId: this.userId,
+      postId: item.postId,
+      voteType: 'upvote'
+    };
+
+    this.stockService.upvotePost(upvoteActionObject);
   }
 
   downvotePost(item: any) {

@@ -9,10 +9,7 @@ export class StockService {
   constructor(private http: HttpClient) {}
 
   upvotePost(upvoteAction) {
-    /*
 
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions();
     const call = `${this.LOTUS_SERVICE_HOST}/api/votes/`;
     const upvoteRequestObject = {
       userId: upvoteAction.userId,
@@ -20,7 +17,7 @@ export class StockService {
       voteType: upvoteAction.voteType // upvote | downvote
     };
 
-    */
+    return this.http.post(call, upvoteRequestObject);
   }
 
   getStockChart(symbol: string) {
