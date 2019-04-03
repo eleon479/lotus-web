@@ -17,6 +17,11 @@ export class StockService {
       voteType: upvoteAction.voteType // upvote | downvote
     };
 
+    console.log('stock service upvotePost called -> sending request to express with call = ');
+    console.log(call);
+    console.log('and upvoteRequestObject = ');
+    console.log(upvoteRequestObject);
+
     return this.http.post(call, upvoteRequestObject);
   }
 

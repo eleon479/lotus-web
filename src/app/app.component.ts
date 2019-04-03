@@ -176,6 +176,9 @@ export class AppComponent implements OnInit {
 
   upvotePost(item: any) {
 
+    console.log('upvotePost triggered for post item: ');
+    console.log(item);
+
     // update ui component immediately
     item.upvoted = !item.upvoted;
     item.downvoted = false;
@@ -192,6 +195,9 @@ export class AppComponent implements OnInit {
       postId: item.postId,
       voteType: 'upvote'
     };
+
+    console.log('upvote action object being sent: ');
+    console.log(upvoteActionObject);
 
     this.stockService.upvotePost(upvoteActionObject);
   }
