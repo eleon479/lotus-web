@@ -22,7 +22,17 @@ export class StockService {
     console.log('and upvoteRequestObject = ');
     console.log(upvoteRequestObject);
 
-    return this.http.post(call, upvoteRequestObject);
+    this.http.post(call, upvoteRequestObject)
+    .subscribe(
+      (val) => {
+          console.log('POST req success: ', val);
+      },
+      response => {
+          console.log('POST req failed: ', response);
+      },
+      () => {
+          console.log('Observable complete.');
+      });
   }
 
   getStockChart(symbol: string) {
