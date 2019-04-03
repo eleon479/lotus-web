@@ -5,12 +5,25 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StockService {
-
   private LOTUS_SERVICE_HOST = 'https://lotus-service.herokuapp.com';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
+
+  upvotePost(upvoteAction) {
+    /*
+
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions();
+    const call = `${this.LOTUS_SERVICE_HOST}/api/votes/`;
+    const upvoteRequestObject = {
+      userId: upvoteAction.userId,
+      postId: upvoteAction.postId,
+      voteType: upvoteAction.voteType // upvote | downvote
+    };
+
+    */
+  }
 
   getStockChart(symbol: string) {
-
     interface ChartSeries {
       value: number;
       name: string;
@@ -23,7 +36,6 @@ export class StockService {
   }
 
   getStockPrice(symbol: string) {
-
     interface StockPrice {
       latestPrice: number;
       changePercent: number;
@@ -36,7 +48,6 @@ export class StockService {
   }
 
   getMoves(userId: number) {
-
     interface UserMove {
       moveId: number;
       userId: number;
@@ -54,7 +65,6 @@ export class StockService {
   }
 
   getUser(userId: number) {
-
     interface UserCore {
       id: number;
       firstname: string;
@@ -69,9 +79,7 @@ export class StockService {
   }
 
   getFeed() {
-
     interface Post {
-
       // relation data
       id: number;
       userId: number;

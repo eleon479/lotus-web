@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, MatCardModule, MatListModule, MatDividerModule, MatInputModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, MatCardModule, MatListModule, MatDividerModule, MatInputModule, MatTooltipModule, MatSidenavModule } from '@angular/material';
 
 import { NgModule } from '@angular/core';
 
@@ -24,6 +24,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    MatSidenavModule,
     FlexLayoutModule,
     OverlayModule,
     MatButtonModule,

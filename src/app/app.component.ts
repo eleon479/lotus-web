@@ -36,13 +36,15 @@ export interface FeedItemModel {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
   // authentication
   userId = 1;
 
   // app
+  sideExpanded: boolean;
   showThemeControls = true;
   darkTheme: boolean;
+
+  // user data
   user: UserModel;
   userFeed: FeedItemModel[] = [];
 
@@ -59,12 +61,12 @@ export class AppComponent implements OnInit {
   // user moves
   userMoves: [];
 
-  constructor(private stockService: StockService) { }
+  constructor(private stockService: StockService) {}
 
   ngOnInit() {
-
-    /* app setting initialization */
+    /* app setting initialization - @TODO->import from account settings db */
     this.darkTheme = true;
+    this.sideExpanded = false;
 
     /* user data loading */
     this.fetchUser();
@@ -79,9 +81,7 @@ export class AppComponent implements OnInit {
     this.stockChart = [
       {
         name: 'placeholder SYMBOL',
-        series: [
-          { value: 1, name: 'first' }
-        ]
+        series: [{ value: 1, name: 'first' }]
       }
     ];
 
@@ -91,19 +91,18 @@ export class AppComponent implements OnInit {
 
   fetchChart(symbol: string) {
     if (symbol) {
-    this.stockService.getStockChart(symbol).subscribe((chartResponse) => {
-      this.stockChart = [
-        {
-          name: symbol,
-          series: [...chartResponse]
-        }
-      ];
-    });
-  }
+      this.stockService.getStockChart(symbol).subscribe(chartResponse => {
+        this.stockChart = [
+          {
+            name: symbol,
+            series: [...chartResponse]
+          }
+        ];
+      });
+    }
   }
 
   fetchUser() {
-
     // initialize user obj to empty vals to
     // prevent weird ngClass bug w/ avatar
     if (!this.user) {
@@ -117,7 +116,7 @@ export class AppComponent implements OnInit {
     }
 
     // implement a token / authentication system(?)
-    this.stockService.getUser(this.userId).subscribe((slice) => {
+    this.stockService.getUser(this.userId).subscribe(slice => {
       this.user = {
         userId: slice.id,
         firstName: this.formatName(slice.firstname),
@@ -133,7 +132,6 @@ export class AppComponent implements OnInit {
 
     this.stockService.getFeed().subscribe(posts => {
       this.userFeed = posts.map(post => {
-
         const randomBoolean = (): boolean => {
           return Boolean(Math.floor(Math.random() * 2));
         };
@@ -168,12 +166,41 @@ export class AppComponent implements OnInit {
 
   fetchQuote(query: string) {
     this.loading = true;
-    this.stockService.getStockPrice(query).subscribe((slice) => {
+    this.stockService.getStockPrice(query).subscribe(slice => {
       this.loading = false;
       this.stockPrice = slice.latestPrice;
       this.stockChange = slice.changePercent;
       this.stockGreen = slice.changePercent >= 0;
     });
+  }
+
+  upvotePost(item: any) {
+    item.upvoted = !item.upvoted;
+    item.downvoted = false;
+
+    // fire off service request to express backend with:
+    interface UpvoteAction {
+      userId: number;
+      postId: number;
+      voteType: string; // upvote | downvote
+    }
+  }
+
+  downvotePost(item: any) {
+    item.downvoted = !item.downvoted;
+    item.upvoted = false;
+  }
+
+  bookmarkPost(item: any) {
+    item.bookmarked = !item.bookmarked;
+  }
+
+  followPost(item: any) {
+    item.followed = !item.followed;
+  }
+
+  sharePost(item: any) {
+    item.shared = !item.shared;
   }
 
   formatName(name: string): string {
@@ -217,9 +244,13 @@ export class AppComponent implements OnInit {
     }
   }
 
+  toggleSidenav() {
+    this.sideExpanded = !this.sideExpanded;
+  }
+
   /* Chart Options */
 
-// tslint:disable-next-line: member-ordering
+  // tslint:disable-next-line: member-ordering
   areaChartOptions = {
     view: null,
     results: [], //
@@ -260,7 +291,7 @@ export class AppComponent implements OnInit {
     yScaleMax: null
   };
 
-// tslint:disable-next-line: member-ordering
+  // tslint:disable-next-line: member-ordering
   lineChartOptions = {
     view: null,
     results: [], //
@@ -326,5 +357,4 @@ export class AppComponent implements OnInit {
     } // multiple series also supported
   ];
   */
-
 }
