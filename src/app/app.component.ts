@@ -61,6 +61,9 @@ export class AppComponent implements OnInit {
   // user moves
   userMoves: [];
 
+  // search state
+  searchFocused: boolean;
+
   constructor(private stockService: StockService) {}
 
   ngOnInit() {
@@ -85,8 +88,22 @@ export class AppComponent implements OnInit {
       }
     ];
 
+    function themeSample() {
+      console.log('hello world!');
+    }
+
     this.fetchQuote(this.stockSymbol);
     this.fetchChart(this.stockSymbol);
+
+    this.searchFocused = false;
+  }
+
+  focusSearch() {
+    this.searchFocused = true;
+  }
+
+  blurSearch() {
+    this.searchFocused = false;
   }
 
   fetchChart(symbol: string) {
@@ -175,7 +192,6 @@ export class AppComponent implements OnInit {
   }
 
   upvotePost(item: any) {
-
     console.log('upvotePost triggered for post item: ');
     console.log(item);
 

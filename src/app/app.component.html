@@ -1,9 +1,7 @@
 <mat-sidenav-container class="lotus-sidenav-container" autosize>
   <mat-sidenav #sidenav class="lotus-sidenav" mode="side" opened="true">
     <mat-nav-list>
-
       <mat-list-item (click)="sideExpanded = !sideExpanded" fxLayout="row">
-
         <div *ngIf="!sideExpanded" fxFlexOrder="1">
           <button mat-icon-button mat-raised-button color="accent">
             <mat-icon>menu</mat-icon>
@@ -22,7 +20,6 @@
             trade<span class="trading-title">::lotus</span>
           </p>
         </div>
-
       </mat-list-item>
 
       <mat-list-item>
@@ -55,22 +52,19 @@
           <span fxHide fxShow.xl>extra large</span>
         </p>
       </mat-list-item>
-
-
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <div id="lotus-app">
-
       <!-- BEGIN TOOLBAR -->
       <mat-toolbar class="lotus-toolbar">
         <div fxLayout="row" fxLayoutAlign="center" class="toolbar-content">
           <div fxFlex="100" fxFlex.lg="85" fxFlex.xl="75">
-
             <!-- BEGIN SEARCH (MID) -->
             <div fxFlex="70" class="search-section">
               <mat-form-field color="accent" floatLabel="never">
-                <input matInput placeholder="Search..." />
+                <input matInput placeholder="Search..." (focus)="focusSearch()" (blur)="blurSearch()" />
+                <mat-icon class="search-suffix-icon" matSuffix [color]="searchFocused ? 'accent' : 'basic'">search</mat-icon>
               </mat-form-field>
             </div>
             <!-- END SEARCH (MID) -->
@@ -198,7 +192,7 @@
                     </mat-card-header>
 
                     <mat-card-content>
-                      <p>{{ item.contents }}</p>
+                      <p class="post-contents">{{ item.contents }}</p>
                     </mat-card-content>
 
                     <mat-card-actions>

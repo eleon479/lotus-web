@@ -1,5 +1,4 @@
 .lotus-sidenav-container {
-
   & {
     position: absolute;
     top: 0;
@@ -31,14 +30,12 @@
       img {
         margin-right: 15px;
       }
-
     }
 
     .trading-title {
       color: #64ffda; // #64FFDA;
       font-style: italic;
     }
-
   }
 
   .menu-section {
@@ -87,7 +84,7 @@
 
 .lotus-toolbar {
   & {
-    height: 56px;
+    //height: 56px;
     //border-bottom-style: solid;
     //border-bottom-width: 3px;
   }
@@ -95,7 +92,12 @@
   .toolbar-content {
     width: 100%;
   }
-  
+
+  .search-suffix-icon {
+    vertical-align: middle;
+    line-height: 20px;
+  }
+
   .toolbar-icon {
     vertical-align: middle;
     line-height: 20px;
@@ -224,6 +226,11 @@
 
     .feed-item {
       margin-bottom: 10px;
+
+      .post-contents {
+        font-size: 16px;
+        line-height: 1.4;
+      }
     }
 
     .feed-item-vote {

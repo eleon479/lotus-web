@@ -9,7 +9,6 @@ export class StockService {
   constructor(private http: HttpClient) {}
 
   upvotePost(upvoteAction) {
-
     const call = `${this.LOTUS_SERVICE_HOST}/api/votes/`;
     const upvoteRequestObject = {
       userId: upvoteAction.userId,
@@ -22,17 +21,17 @@ export class StockService {
     console.log('and upvoteRequestObject = ');
     console.log(upvoteRequestObject);
 
-    this.http.post(call, upvoteRequestObject)
-    .subscribe(
-      (val) => {
-          console.log('POST req success: ', val);
+    this.http.post(call, upvoteRequestObject).subscribe(
+      val => {
+        console.log('POST req success: ', val);
       },
       response => {
-          console.log('POST req failed: ', response);
+        console.log('POST req failed: ', response);
       },
       () => {
-          console.log('Observable complete.');
-      });
+        console.log('Observable complete.');
+      }
+    );
   }
 
   getStockChart(symbol: string) {
