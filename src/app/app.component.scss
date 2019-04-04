@@ -1,4 +1,5 @@
 .lotus-sidenav-container {
+
   & {
     position: absolute;
     top: 0;
@@ -9,14 +10,42 @@
   }
 
   .lotus-sidenav {
-    width: 300px;
+    // width: 300px;
+
+    .close-sidenav-icon {
+      position: relative;
+      right: 0;
+      font-size: 16px !important;
+    }
+
+    .mat-headline {
+      margin: 0 !important;
+      //height: 56px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start; // main axis
+      align-items: center; // cross axis
+
+      font-size: 24px;
+
+      img {
+        margin-right: 15px;
+      }
+
+    }
+
+    .trading-title {
+      color: #64ffda; // #64FFDA;
+      font-style: italic;
+    }
+
   }
 
   .menu-section {
     & {
       padding: 10px;
       height: 30vh;
-      //border: 1px solid black;
+      // border: 1px solid black;
     }
 
     .menu-user-header {
@@ -66,6 +95,7 @@
   .toolbar-content {
     width: 100%;
   }
+  
   .toolbar-icon {
     vertical-align: middle;
     line-height: 20px;
