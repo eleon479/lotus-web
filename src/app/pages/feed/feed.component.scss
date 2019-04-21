@@ -1,0 +1,332 @@
+.lotus-sidenav-container {
+  & {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    // background: #eee;
+  }
+
+  .lotus-sidenav {
+    // width: 300px;
+
+    .close-sidenav-icon {
+      position: relative;
+      right: 0;
+      font-size: 16px !important;
+    }
+
+    .mat-headline {
+      margin: 0 !important;
+      //height: 56px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start; // main axis
+      align-items: center; // cross axis
+
+      font-size: 24px;
+
+      img {
+        margin-right: 15px;
+      }
+    }
+
+    .trading-title {
+      color: #64ffda; // #64FFDA;
+      font-style: italic;
+    }
+  }
+
+  .menu-section {
+    & {
+      padding: 10px;
+      height: 30vh;
+      // border: 1px solid black;
+    }
+
+    .menu-user-header {
+      display: flex;
+      flex-direction: row;
+      margin-top: 0px;
+      width: 100%;
+    }
+
+    .menu-user-header-text {
+      display: block;
+      margin-bottom: 0px;
+      margin-left: 16px;
+      margin-right: 16px;
+      margin-top: 0px;
+    }
+
+    .user-header-name {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .user-header-tag {
+      font-size: 14px;
+      margin-bottom: 16px;
+      margin-top: -8px;
+    }
+
+    mat-list-item {
+      height: 40px;
+    }
+
+    h3 {
+      font-size: 14px; // default 14px
+      padding-bottom: 8px; // default 16px
+    }
+  }
+}
+
+.lotus-toolbar {
+  & {
+    //height: 56px;
+    //border-bottom-style: solid;
+    //border-bottom-width: 3px;
+  }
+
+  .toolbar-content {
+    width: 100%;
+  }
+
+  .search-suffix-icon {
+    vertical-align: middle;
+    line-height: 20px;
+  }
+
+  .toolbar-icon {
+    vertical-align: middle;
+    line-height: 20px;
+    padding: 0 14px;
+  }
+
+  .title-section {
+    & {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start; // main axis
+      align-items: center; // cross axis
+    }
+
+    .mat-headline {
+      margin: 0 !important;
+    }
+
+    .trading-title {
+      color: #64ffda; // #64FFDA;
+      font-style: italic;
+    }
+  }
+
+  .search-section {
+    & {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    > * {
+      width: 100%;
+    }
+
+    .toolbar-search {
+      height: 32px;
+      //line-height:
+      font-size: 16px;
+      border-radius: 3px;
+      border: none;
+      padding-top: 0px;
+      padding-left: 5px;
+      padding-bottom: 0px;
+    }
+
+    div.search-input-wrapper {
+      & {
+        flex-grow: 100;
+        //border: 1px solid green;
+        max-height: 32px;
+        padding: 0;
+      }
+
+      input.search-input {
+        width: 100%;
+        height: 32px;
+        font-size: 16px;
+        border-radius: 3px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: gainsboro;
+        padding-top: 0px;
+        padding-left: 5px;
+        padding-bottom: 0px;
+        //caret-color: #a9a9a9;
+      }
+
+      input.search-input:focus {
+        outline: none;
+      }
+    }
+
+    div.search-button-wrapper {
+      & {
+        //border: 1px solid blue;
+        max-height: 32px;
+      }
+
+      button.search-button {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        max-height: 34px;
+      }
+    }
+  }
+
+  .account-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+.dashboard-content {
+  & {
+    width: 100%;
+  }
+
+  .menu-section {
+    & {
+      padding: 10px;
+      height: 30vh;
+      //border: 1px solid black;
+    }
+
+    .user-menu {
+      mat-list-item {
+        height: 40px;
+      }
+      h3 {
+        font-size: 14px; // default 14px
+        padding-bottom: 8px; // default 16px
+      }
+    }
+  }
+
+  .feed-section {
+    & {
+      padding: 10px;
+      height: 80vh;
+      //border: 1px solid black;
+    }
+
+    .feed-item {
+      margin-bottom: 10px;
+
+      .post-contents {
+        font-size: 16px;
+        line-height: 1.4;
+      }
+    }
+
+    .feed-item-vote {
+      //width: 25px;
+      //height: 25px;
+      padding: 0;
+      //margin: 0;
+    }
+
+    .feed-item-action {
+      //border: 1px solid red;
+    }
+
+    .feed-item-chart {
+      min-height: 300px;
+      height: 299px;
+      width: 100%;
+    }
+  }
+
+  .trend-section {
+    & {
+      padding: 5px;
+      height: 50vh;
+      //border: 1px solid black;
+    }
+
+    .trend-title {
+      margin-bottom: 5px;
+    }
+
+    .trend-item {
+      margin-bottom: 5px;
+    }
+
+    .trend-item-chart {
+      //min-height: 300px;
+      height: 150px;
+      width: 100%;
+    }
+  }
+}
+
+.proper-name {
+  text-transform: capitalize;
+}
+.tag-name {
+  text-transform: lowercase;
+  font-weight: bolder;
+}
+
+.action-green {
+  color: #64ffda;
+}
+.action-red {
+  color: red;
+}
+
+.avatar1 {
+  background-color: lightcoral;
+}
+.avatar2 {
+  background-color: lightgreen;
+}
+.avatar3 {
+  background-color: lightblue;
+}
+.avatar4 {
+  background-color: lightslategray;
+}
+.avatar5 {
+  background-color: lightgoldenrodyellow;
+}
+.avatar6 {
+  background-color: lightsalmon;
+}
+.avatar7 {
+  background-color: lightseagreen;
+}
+
+.stock-ticker {
+  color: #64ffda;
+  font-weight: bold;
+}
+
+.theme-controls {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+
+  button {
+    margin-top: 5px;
+    margin-right: 10px;
+  }
+}

@@ -1,0 +1,36 @@
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex="30" style="margin-top: 25px;">
+    <mat-card>
+      <mat-card-content>
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <div>
+            <p class="mat-title" style="text-align: center;">Login</p>
+          </div>
+          <div *ngIf="invalid">
+            <p class="mat-subtitle" style="color: red; text-align: center;">
+              {{ message }}
+            </p>
+          </div>
+          <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+            <div>
+              <mat-form-field color="accent">
+                <input type="text" [(ngModel)]="username" matInput placeholder="Username" required name="user" />
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field color="accent">
+                <input type="password" [(ngModel)]="password" matInput placeholder="Password" required name="pass" />
+                <mat-icon matSuffix>lock</mat-icon>
+              </mat-form-field>
+            </div>
+            <div>
+              <button type="submit" mat-raised-button color="accent">Login</button>
+              <button routerLink="/register" mat-button>Register</button>
+            </div>
+          </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
