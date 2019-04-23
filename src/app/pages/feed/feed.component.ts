@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AccountService } from '../../services/account.service';
 import { StockService } from '../../services/stock.service';
 import * as shape from 'd3-shape';
 
@@ -64,7 +66,7 @@ export class FeedComponent implements OnInit {
   // search state
   searchFocused: boolean;
 
-  constructor(private stockService: StockService) {}
+  constructor(private router: Router, private accountService: AccountService, private stockService: StockService) {}
 
   ngOnInit() {
     /* app setting initialization - @TODO->import from account settings db */
@@ -278,6 +280,11 @@ export class FeedComponent implements OnInit {
 
   toggleSidenav() {
     this.sideExpanded = !this.sideExpanded;
+  }
+
+  userSignOff() {
+    this.accountService.logout();
+    this.router.navigate(['/welcome']);
   }
 
   /* Chart Options */

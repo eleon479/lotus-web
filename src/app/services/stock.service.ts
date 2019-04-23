@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StockService {
-  private LOTUS_SERVICE_HOST = 'https://lotus-service.herokuapp.com';
-  constructor(private http: HttpClient) {}
+  private LOTUS_SERVICE_HOST = environment.production ? 'https://lotus-service.herokuapp.com' : 'http://localhost:3000';
+  private stockHeaders = { headers: { 'x-auth-token': localStorage.getItem('acc_token') } };
+
+  constructor(private http: HttpClient) { }
 
   upvotePost(upvoteAction) {
     const call = `${this.LOTUS_SERVICE_HOST}/api/votes/`;
@@ -21,7 +24,7 @@ export class StockService {
     console.log('and upvoteRequestObject = ');
     console.log(upvoteRequestObject);
 
-    this.http.post(call, upvoteRequestObject).subscribe(
+    this.http.post(call, upvoteRequestObject, this.stockHeaders).subscribe(
       val => {
         console.log('POST req success: ', val);
       },
@@ -43,7 +46,7 @@ export class StockService {
     const stock = symbol;
     const call = `${this.LOTUS_SERVICE_HOST}/api/ext/charts/${stock}`;
 
-    return this.http.get<ChartSeries[]>(call);
+    return this.http.get<ChartSeries[]>(call, this.stockHeaders);
   }
 
   getStockPrice(symbol: string) {
@@ -55,7 +58,7 @@ export class StockService {
     const stock = symbol;
     const call = `${this.LOTUS_SERVICE_HOST}/api/ext/quotes/${stock}`;
 
-    return this.http.get<StockPrice>(call);
+    return this.http.get<StockPrice>(call, this.stockHeaders);
   }
 
   getMoves(userId: number) {
@@ -72,7 +75,7 @@ export class StockService {
     }
 
     const call = `${this.LOTUS_SERVICE_HOST}/api/moves/${userId}`;
-    return this.http.get<UserMove[]>(call);
+    return this.http.get<UserMove[]>(call, this.stockHeaders);
   }
 
   getUser(userId: number) {
@@ -86,7 +89,7 @@ export class StockService {
 
     const call = `${this.LOTUS_SERVICE_HOST}/api/users/${userId}`;
 
-    return this.http.get<UserCore>(call);
+    return this.http.get<UserCore>(call, this.stockHeaders);
   }
 
   getFeed() {
@@ -116,6 +119,6 @@ export class StockService {
 
     const call = `${this.LOTUS_SERVICE_HOST}/api/posts/`;
 
-    return this.http.get<Post[]>(call);
+    return this.http.get<Post[]>(call, this.stockHeaders);
   }
 }

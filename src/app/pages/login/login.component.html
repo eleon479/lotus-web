@@ -6,7 +6,7 @@
           <div>
             <p class="mat-title" style="text-align: center;">Login</p>
           </div>
-          <div *ngIf="invalid">
+          <div *ngIf="invalid || incorrect">
             <p class="mat-subtitle" style="color: red; text-align: center;">
               {{ message }}
             </p>
@@ -14,19 +14,23 @@
           <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
             <div>
               <mat-form-field color="accent">
-                <input type="text" [(ngModel)]="username" matInput placeholder="Username" required name="user" />
+                <input type="text" [(ngModel)]="email" matInput placeholder="E-Mail" required name="mail" required />
                 <mat-icon matSuffix>person</mat-icon>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field color="accent">
-                <input type="password" [(ngModel)]="password" matInput placeholder="Password" required name="pass" />
+                <input type="password" [(ngModel)]="password" matInput placeholder="Password" required name="pass" required />
                 <mat-icon matSuffix>lock</mat-icon>
               </mat-form-field>
             </div>
             <div>
               <button type="submit" mat-raised-button color="accent">Login</button>
               <button routerLink="/register" mat-button>Register</button>
+            </div>
+            <div>
+              <p *ngIf="loading"><i>loading...</i></p>
+              <p *ngIf="success" style="color: green; text-align: center;"><i>Successfully logged in!</i></p>
             </div>
           </form>
         </div>

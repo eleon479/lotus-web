@@ -2,6 +2,7 @@
   <mat-sidenav #sidenav class="lotus-sidenav" mode="side" opened="true">
     <mat-nav-list>
       <mat-list-item (click)="sideExpanded = !sideExpanded" fxLayout="row">
+
         <div *ngIf="!sideExpanded" fxFlexOrder="1">
           <button mat-icon-button mat-raised-button color="accent">
             <mat-icon>menu</mat-icon>
@@ -52,6 +53,12 @@
           <span fxHide fxShow.xl>extra large</span>
         </p>
       </mat-list-item>
+
+      <mat-list-item (click)="userSignOff()">
+        <mat-icon mat-list-icon>power_settings_new</mat-icon>
+        <p matLine *ngIf="sideExpanded">Sign Off</p>
+      </mat-list-item>
+
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
