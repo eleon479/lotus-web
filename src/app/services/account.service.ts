@@ -51,9 +51,6 @@ export class AccountService {
       return false;
     }
 
-    console.log('storedToken: ');
-    console.log(storedToken);
-
     // 2) check token against auth server
     const authCall = `${this.LOTUS_SERVICE_HOST}/api/login/check`;
     const authHeaders = {
@@ -61,10 +58,6 @@ export class AccountService {
         'x-auth-token': storedToken
       }
     };
-
-    console.log('Sending headers: ');
-    console.log(authHeaders);
-
 
     const checkTokenResponse = this.http.get<{validToken: boolean, reason: string}>(authCall, authHeaders).toPromise();
 
@@ -74,8 +67,6 @@ export class AccountService {
           return false;
         }
 
-        console.log('/check validToken: ', checkResponse.validToken);
-        console.log('/check reason: ', checkResponse.reason);
         return checkResponse.validToken;
       })
       .catch(err => {
