@@ -1,50 +1,101 @@
 <mat-sidenav-container class="lotus-sidenav-container" autosize>
   <mat-sidenav #sidenav class="lotus-sidenav" mode="side" opened="true">
-    <mat-nav-list>
-      <mat-list-item (click)="sideExpanded = !sideExpanded" fxLayout="row">
+    <mat-nav-list (mouseover)="sideHover()" (mouseout)="sideOut()">
 
-        <div *ngIf="!sideExpanded" fxFlexOrder="1">
-          <button mat-icon-button mat-raised-button color="accent">
-            <mat-icon>menu</mat-icon>
-          </button>
-        </div>
-
-        <div *ngIf="sideExpanded" fxFlexOrder="2">
-          <button mat-icon-button mat-raised-button>
-            <mat-icon>clear</mat-icon>
-          </button>
-        </div>
-
-        <div *ngIf="sideExpanded" fxFlexOrder="3" style="margin-left: 15px;">
-          <p matLine class="mat-headline">
-            <!-- <img src="../assets/lotus_vector.svg" style="width: 30px; height: inherit; vertical-align: text-bottom;" /> -->
-            trade<span class="trading-title">::lotus</span>
-          </p>
-        </div>
+      <mat-list-item (click)="sideClick()">
+        <mat-icon mat-list-icon svgIcon="lotus" class="lotus-logo"></mat-icon>
+        <p matLine *ngIf="sideExpanded" class="lotus-title">
+         trade<span class="lotus-title-wrap">::<i>lotus</i></span>
+        </p>
       </mat-list-item>
 
+      <mat-divider></mat-divider>
+
+      <!--
+
+        Account
+          Home
+          Profile
+          Bookmarks
+          Settings
+
+        Markets
+          Movers
+          News
+          Research
+          Timeline
+
+        Social
+          Popular
+          Groups
+          Messages
+          TradeStreams
+
+      -->
+
+      <h3 mat-subheader *ngIf="sideExpanded">Account</h3>
+
       <mat-list-item>
-        <mat-icon mat-list-icon>home</mat-icon>
+        <mat-icon mat-list-icon color="accent">home</mat-icon>
         <p matLine *ngIf="sideExpanded">Home</p>
       </mat-list-item>
-
       <mat-list-item>
-        <mat-icon mat-list-icon>person</mat-icon>
+        <mat-icon mat-list-icon color="accent">person</mat-icon>
         <p matLine *ngIf="sideExpanded">Profile</p>
       </mat-list-item>
-
       <mat-list-item>
-        <mat-icon mat-list-icon>bookmarks</mat-icon>
+        <mat-icon mat-list-icon color="accent">bookmarks</mat-icon>
         <p matLine *ngIf="sideExpanded">Bookmarks</p>
       </mat-list-item>
-
       <mat-list-item>
-        <mat-icon mat-list-icon>settings</mat-icon>
-        <p matLine *ngIf="sideExpanded">Account</p>
+        <mat-icon mat-list-icon color="accent">settings</mat-icon>
+        <p matLine *ngIf="sideExpanded">Settings</p>
       </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <h3 mat-subheader *ngIf="sideExpanded">Markets</h3>
 
       <mat-list-item>
-        <mat-icon mat-list-icon>desktop_windows</mat-icon>
+        <mat-icon mat-list-icon color="accent">trending_up</mat-icon>
+        <p matLine *ngIf="sideExpanded">Movers</p>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon color="accent">public</mat-icon>
+        <p matLine *ngIf="sideExpanded">News</p>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon color="accent">equalizer</mat-icon>
+        <p matLine *ngIf="sideExpanded">Research</p>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon color="accent">linear_scale</mat-icon>
+        <p matLine *ngIf="sideExpanded">Timeline</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <h3 mat-subheader *ngIf="sideExpanded">Social</h3>
+
+      <mat-list-item>
+        <mat-icon mat-list-icon color="accent">whatshot</mat-icon>
+        <p matLine *ngIf="sideExpanded">Popular</p>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon color="accent">group</mat-icon>
+        <p matLine *ngIf="sideExpanded">Groups</p>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon color="accent">mail</mat-icon>
+        <p matLine *ngIf="sideExpanded">Messages</p>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon color="accent">wifi_tethering</mat-icon>
+        <p matLine *ngIf="sideExpanded">TradeStreams</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <!--
+      <mat-list-item>
+        <mat-icon mat-list-icon color="accent">desktop_windows</mat-icon>
         <p matLine *ngIf="sideExpanded">
           <span fxHide fxShow.xs>extra small</span>
           <span fxHide fxShow.sm>small</span>
@@ -53,9 +104,10 @@
           <span fxHide fxShow.xl>extra large</span>
         </p>
       </mat-list-item>
+      -->
 
       <mat-list-item (click)="userSignOff()">
-        <mat-icon mat-list-icon>power_settings_new</mat-icon>
+        <mat-icon mat-list-icon color="accent">power_settings_new</mat-icon>
         <p matLine *ngIf="sideExpanded">Sign Off</p>
       </mat-list-item>
 
@@ -66,9 +118,9 @@
       <!-- BEGIN TOOLBAR -->
       <mat-toolbar class="lotus-toolbar">
         <div fxLayout="row" fxLayoutAlign="center" class="toolbar-content">
-          <div fxFlex="100" fxFlex.lg="85" fxFlex.xl="75">
+          <div fxFlex="100" fxFlex.lg="70" fxFlex.xl="60">
             <!-- BEGIN SEARCH (MID) -->
-            <div fxFlex="70" class="search-section">
+            <div fxFlex="70" fxFlex.lt-md="100" class="search-section">
               <mat-form-field color="accent" floatLabel="never">
                 <input matInput placeholder="Search..." (focus)="focusSearch()" (blur)="blurSearch()" />
                 <mat-icon class="search-suffix-icon" matSuffix [color]="searchFocused ? 'accent' : 'basic'">search</mat-icon>
@@ -99,87 +151,13 @@
 
       <!-- BEGIN DASHBOARD CONTENT -->
       <div fxLayout="row" fxLayoutAlign="center" class="dashboard-content">
-        <div fxFlex="100" fxFlex.lg="85" fxFlex.xl="75">
-          <!-- BEGIN MENU SECTION-->
-          <div fxHide fxFlex="25" fxHide.xs fxFlex.lt-md="35" class="menu-section">
-            <div class="user-menu">
-              <mat-card>
-                <mat-card-header>
-                  <div mat-card-avatar [ngClass]="user.avatar"></div>
-                  <mat-card-title class="proper-name">{{ user.firstName + ' ' + user.lastName }}</mat-card-title>
-                  <mat-card-subtitle class="tag-name">@{{ user.tag }}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                  <mat-divider></mat-divider>
-                  <mat-list>
-                    <!--User/Personal/Account-->
-                    <h3 matSubheader>Your Account</h3>
-                    <mat-list-item>
-                      <mat-icon mat-list-icon>home</mat-icon>
-                      <h4 mat-line>Home</h4>
-                    </mat-list-item>
-                    <mat-list-item>
-                      <mat-icon mat-list-icon>person</mat-icon>
-                      <h4 mat-line>Profile</h4>
-                    </mat-list-item>
-                    <mat-list-item>
-                      <mat-icon mat-list-icon>bookmarks</mat-icon>
-                      <h4 mat-line>Bookmarks</h4>
-                    </mat-list-item>
-                    <mat-list-item>
-                      <mat-icon mat-list-icon>settings</mat-icon>
-                      <h4 mat-line>Account</h4>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <!--User/Personal-->
-
-                    <!--Markets-->
-                    <h3 matSubheader>Markets</h3>
-                    <mat-list-item>
-                      <mat-icon mat-list-icon>trending_up</mat-icon>
-                      <h4 mat-line>Movers</h4>
-                    </mat-list-item>
-                    <mat-list-item>
-                      <mat-icon mat-list-icon>public</mat-icon>
-                      <h4 mat-line>News</h4>
-                    </mat-list-item>
-                    <mat-list-item>
-                      <mat-icon mat-list-icon>equalizer</mat-icon>
-                      <h4 mat-line>Research</h4>
-                    </mat-list-item>
-                    <mat-list-item>
-                      <mat-icon mat-list-icon>linear_scale</mat-icon>
-                      <h4 mat-line>Timeline</h4>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <!--Markets-->
-
-                    <!--Social-->
-                    <h3 matSubheader>Social</h3>
-                    <mat-list-item>
-                      <mat-icon mat-list-icon>whatshot</mat-icon>
-                      <h4 mat-line>Popular</h4>
-                    </mat-list-item>
-                    <mat-list-item>
-                      <mat-icon mat-list-icon>group</mat-icon>
-                      <h4 mat-line>Groups</h4>
-                    </mat-list-item>
-                    <mat-list-item>
-                      <mat-icon mat-list-icon>mail</mat-icon>
-                      <h4 mat-line>Messages</h4>
-                    </mat-list-item>
-                    <!--Social-->
-                  </mat-list>
-                </mat-card-content>
-              </mat-card>
-            </div>
-          </div>
-          <!-- END MENU SECTION -->
+        <div fxFlex="100" fxFlex.lg="70" fxFlex.xl="60">
 
           <!-- BEGIN FEED SECTION -->
-          <div fxFlex="70" class="feed-section">
+          <div fxFlex="70" fxFlex.lt-md="100" class="feed-section">
             <div class="feed-container">
               <div *ngFor="let item of userFeed">
+
                 <!-- BEGIN FEED ITEM -->
                 <div class="feed-item">
                   <mat-card>
@@ -335,16 +313,6 @@
         </div>
       </button>
 
-      <!--
-        <button (click)="toggleSidenav()" mat-fab>
-          <div *ngIf="sideExpanded">
-            <mat-icon>dashboard</mat-icon>
-          </div>
-          <div *ngIf="!sideExpanded">
-            <mat-icon>chrome_reader_mode</mat-icon>
-          </div>
-        </button>
-        -->
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

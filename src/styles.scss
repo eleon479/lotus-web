@@ -1,15 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
-
-/* Light Theme (pre-built) */
-//@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-/* Dark Theme (pre-built) */
-//@import "~@angular/material/prebuilt-themes/purple-green.css";
-
 @import '~@angular/material/theming';
-
 @include mat-core();
 
-// define the default theme
+/* ------------------- DARK THEME ------------------------------------ */
+
+// custom palette definitions
+
+// main swatch initializations (primary, accent, warn)
+$dark-primary: mat-palette($mat-deep-purple);
+$dark-accent: mat-palette($mat-green, A200, A100, A400);
+$dark-warn: mat-palette($mat-red);
+
+// dark theme initialization
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+.lotus-dark-theme {
+
+  // theme import
+  @include angular-material-theme($dark-theme);
+
+  // miscellaneous global app styles:
+  .lotus-toolbar {
+    background-color: transparent;
+    border-bottom-color: #64ffda;
+  }
+
+  .toolbar-icon {
+    color: #64ffda;
+  }
+  /*.search-button {
+    background-color: #64ffda;
+  }*/
+  .action-tooltip {
+    margin: 0;
+  }
+}
+
+/* ------------------- LIGHT THEME ------------------------------------ */
+
+// light theme
 $candy-app-primary: mat-palette($mat-indigo);
 $candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
 $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent);
@@ -25,32 +53,6 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent);
   .toolbar-icon {
     color: #3f51b5;
   }
-  .action-tooltip {
-    margin: 0;
-  }
-}
-
-// define an alternate dark theme
-$dark-primary: mat-palette($mat-blue-grey);
-$dark-accent: mat-palette($mat-amber, A200, A100, A400);
-$dark-warn: mat-palette($mat-deep-orange);
-$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
-
-.lotus-dark-theme {
-  //@include angular-material-theme($dark-theme);
-  @import '~@angular/material/prebuilt-themes/purple-green.css';
-
-  .lotus-toolbar {
-    background-color: transparent;
-    border-bottom-color: #64ffda;
-  }
-
-  .toolbar-icon {
-    color: #64ffda;
-  }
-  /*.search-button {
-    background-color: #64ffda;
-  }*/
   .action-tooltip {
     margin: 0;
   }

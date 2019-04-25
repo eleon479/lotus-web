@@ -1,3 +1,39 @@
-<p>
-  register works!
-</p>
+<div fxLayout="row" fxLayoutAlign="center">
+    <div fxFlex="30" style="margin-top: 25px;">
+      <mat-card>
+        <mat-card-content>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <div>
+              <p class="mat-title" style="text-align: center;">Register</p>
+            </div>
+            <div *ngIf="invalid || incorrect">
+              <p class="mat-subtitle" style="color: red; text-align: center;">
+                {{ message }}
+              </p>
+            </div>
+            <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+              <div>
+                <mat-form-field color="accent">
+                  <input type="text" [(ngModel)]="email" matInput placeholder="E-Mail" required name="mail" required />
+                  <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field color="accent">
+                  <input type="password" [(ngModel)]="password" matInput placeholder="Password" required name="pass" required />
+                  <mat-icon matSuffix>lock</mat-icon>
+                </mat-form-field>
+              </div>
+              <div>
+                <button type="submit" mat-raised-button color="accent">LET'S GO</button>
+              </div>
+              <div>
+                <p *ngIf="loading"><i>loading...</i></p>
+                <p *ngIf="success" style="color: green; text-align: center;"><i>Successfully registered!</i></p>
+              </div>
+            </form>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>

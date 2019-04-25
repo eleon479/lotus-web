@@ -17,25 +17,27 @@
       font-size: 16px !important;
     }
 
-    .mat-headline {
-      margin: 0 !important;
-      //height: 56px;
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start; // main axis
-      align-items: center; // cross axis
+    .lotus-logo {
+      width: 40px;
+      height: 40px;
+    }
 
+    .lotus-title {
       font-size: 24px;
-
-      img {
-        margin-right: 15px;
-      }
     }
 
-    .trading-title {
+    .lotus-title-wrap {
       color: #64ffda; // #64FFDA;
-      font-style: italic;
     }
+
+    mat-nav-list {
+      padding-top: 0;
+    }
+
+    mat-icon {
+      margin: auto;
+    }
+
   }
 
   .menu-section {

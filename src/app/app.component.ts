@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare let ga: Function;
 
@@ -9,7 +11,10 @@ declare let ga: Function;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(public router: Router) {
+  constructor(
+    public router: Router,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer) {
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -17,6 +22,11 @@ export class AppComponent implements OnInit {
         ga('send', 'pageview');
       }
     });
+
+    this.matIconRegistry.addSvgIcon(
+      'lotus',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/lotus_flat.svg')
+    );
 
   }
   ngOnInit() {}

@@ -43,6 +43,8 @@ export class FeedComponent implements OnInit {
 
   // app
   sideExpanded: boolean;
+  sideManuallyOpened: boolean;
+  sideManuallyClosed: boolean;
   showThemeControls = true;
   darkTheme: boolean;
 
@@ -72,6 +74,8 @@ export class FeedComponent implements OnInit {
     /* app setting initialization - @TODO->import from account settings db */
     this.darkTheme = true;
     this.sideExpanded = false;
+    this.sideManuallyOpened = false;
+    this.sideManuallyClosed = false;
 
     /* user data loading */
     this.fetchUser();
@@ -99,6 +103,24 @@ export class FeedComponent implements OnInit {
 
     this.searchFocused = false;
   }
+
+  sideClick() {
+    this.sideExpanded = !this.sideExpanded;
+    this.sideManuallyOpened = this.sideExpanded;
+    this.sideManuallyClosed = !this.sideManuallyOpened;
+  }
+
+  sideHover() {
+    if (!this.sideManuallyClosed && !this.sideExpanded) {
+      this.sideExpanded = true;
+    }
+  }
+
+  /*sideOut() {
+    if (!this.sideManuallyOpened && this.sideExpanded) {
+      this.sideExpanded = false;
+    }
+  }*/
 
   focusSearch() {
     this.searchFocused = true;
