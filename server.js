@@ -1,11 +1,11 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const path = require('path');
+const app = express();
+const port = process.env.PORT || 5000;
 
-var distPath = __dirname + '/dist/';
-app.use(express.static(distPath));
-
-var server = app.listen(process.env.PORT || 5000, function() {
-    var port = server.address().port;
-    console.log('App now running on port ', port);
+app.use(express.static(path.join(__dirname, 'dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
+app.listen(port, () => console.log('running on port: ', port));
